@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>{% block title %}Mi aplicacion genial{% endblock title %}</title>
+	<script src="https://sdk.accountkit.com/es_LA/sdk.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<style type="text/css">
+	body {
+		background: #e0e0e0;
+	}
+	h1, 
+	h2,
+	h3 {
+		color: #666;
+	}
+	button {
+		display: block !important;
+		margin: 40px auto;
+		width: 30%;
+	}
+</style>
+<body>
+<div class="row" style="margin-top: 100px">
+  <div class="col s12 m6 offset-m3">
+    <div class="card-panel">
+    <h2 class="center-align">Facebook Account Kit</h2>
+	{% block content %}
+	    
+	{% endblock content %}
+	</div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Login de mi genial aplicación{% endblock title %}
+
+{% block content %}
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : 'YOUR_APP_ID',
+      xfbml      : true,
+      version    : 'v2.7'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+    
+    <h3 class="center-align">Login con:</h3>
+    <button onclick="phone_btn_onclick();" class="btn indigo">
+      SMS
+    </button>
+    <button onclick="email_btn_onclick();" class="btn pink">
+      Email
+    </button>        
+
+<form id="my_form" name="my_form"  method="POST" style="display: none;">
+      <input type="text" id="code" name="code">
+      <input type="text" id="csrf_nonce" name="csrf_nonce">
+      <input type="submit" value="Submit">
+</form>
+<script>
+  // initialize Account Kit with CSRF protection
+  AccountKit_OnInteractive = function(){
+    AccountKit.init(
+      {
+        appId:{{app_id}}, 
+        state:"{{ csrf_token }}", 
+        version:"{{api_version}}"
+      }
+    );
+  };
+  // login callback
+  function loginCallback(response) {
+    console.log(response);
+    if (response.status === "PARTIALLY_AUTHENTICATED") {
+      document.getElementById("code").value = response.code;
+      document.getElementById("csrf_nonce").value = response.state;
+      document.getElementById("my_form").submit();
+    }
+    else if (response.status === "NOT_AUTHENTICATED") {
+      // handle authentication failure
+    }
+    else if (response.status === "BAD_PARAMS") {
+      // handle bad parameters
+    }
+  }
+  // phone form submission handler
+  function phone_btn_onclick() {
+    AccountKit.login('PHONE', 
+      {}, // will use default values if this is not specified
+      loginCallback);
+  }
+  // email form submission handler
+  function email_btn_onclick() {
+    AccountKit.login('EMAIL', {}, loginCallback);
+  }
+</script>
+
+  
+{% endblock content %}

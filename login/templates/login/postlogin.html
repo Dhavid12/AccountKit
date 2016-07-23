@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Información de usuario{% endblock title %}
+
+{% block content %}
+<h3 class="center-align">¡Haz iniciado sesión!</h3>
+<h3 class="center-align">Detalles:</h3>
+<p><i class="material-icons indigo-text">vpn_key</i> {{user_id}}</p>
+<p><i class="material-icons pink-text">settings</i> {{method}}</p> 
+<p><i class="material-icons indigo-text">person_pin</i> {{identity}}</p> 
+	
+{% endblock content %}
